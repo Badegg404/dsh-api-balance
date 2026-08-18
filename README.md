@@ -27,6 +27,10 @@ A persistent web plugin for [DeepSeek Harness (DSH)](https://github.com/deepseek
 | Moonshot (Kimi) | `GET /v1/users/me/balance` | — |
 | SiliconFlow | `GET /v1/user/info` | — |
 | OpenAI | `GET /v1/dashboard/billing/subscription` | — |
+| MiniMax | `GET /v1/token_plan/remains` | — |
+| StepFun | `GET /v1/accounts` | — |
+| xAI (Grok) | `GET /v1/billing/credits` | — |
+| Zhipu GLM | `GET /api/monitor/usage/quota/limit` | — |
 
 > Provider endpoints may change upstream; if a provider fails to parse, consult its official docs. See "Adding a provider" below.
 
