@@ -4,4 +4,4 @@
 # (exports "./client") load in the web GUI.
 - insert:
     - id: dsh-api-balance
-      name: '@badegg404/dsh-api-balance'
+      name: '@Badegg404/dsh-api-balance'
