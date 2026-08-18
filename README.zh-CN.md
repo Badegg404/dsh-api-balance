@@ -52,7 +52,7 @@ Host 通过 `webServer` 注册 loopback-only 的 `/balance/*` 路由，读取凭
 ### 方式一：`dsh plugin` 命令
 
 ```bash
-dsh plugin --profile web add https://github.com/huaidan2025/dsh-api-balance.git
+dsh plugin --profile web add https://github.com/Badegg404/dsh-api-balance.git
 ```
 
 ### 方式二：手动安装
@@ -63,13 +63,13 @@ dsh plugin --profile web add https://github.com/huaidan2025/dsh-api-balance.git
 ```jsonc
 {
   "dependencies": {
-    "@huaidan2025/dsh-api-balance": "file:plugins/dsh-api-balance"
+    "@badegg404/dsh-api-balance": "file:plugins/dsh-api-balance"
   },
   "dsh": {
     "profile": {
       "bundles": [
         // ...已有 bundles...
-        "@huaidan2025/dsh-api-balance"
+        "@badegg404/dsh-api-balance"
       ]
     }
   }
