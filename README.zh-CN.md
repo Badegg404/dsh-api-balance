@@ -19,18 +19,27 @@
 
 ## 支持平台
 
-| 平台 | 余额接口 | 附加参数 |
+### 余额
+
+| 平台 | 接口 | 附加参数 |
 | --- | --- | --- |
 | AGICTO | `POST /v1/enterprise/account` | `uuid`（账户 UUID） |
 | DeepSeek | `GET /user/balance` | — |
 | OpenRouter | `GET /api/v1/credits` | — |
 | Moonshot (Kimi) | `GET /v1/users/me/balance` | — |
 | 硅基流动 SiliconFlow | `GET /v1/user/info` | — |
-| OpenAI | `GET /v1/dashboard/billing/subscription` | — |
 | MiniMax | `GET /v1/token_plan/remains` | — |
 | 阶跃星辰 StepFun | `GET /v1/accounts` | — |
 | xAI (Grok) | `GET /v1/billing/credits` | — |
-| 智谱 GLM | `GET /api/monitor/usage/quota/limit` | — |
+
+### 用量
+
+| 平台 | 接口 |
+| --- | --- |
+| OpenAI | `GET /v1/organization/costs` |
+| 智谱 GLM | `GET /api/monitor/usage/quota/limit` |
+| Together AI | `GET /v1/billing/usage` |
+| Anthropic (Claude) | `GET /v1/organizations/cost_report` |
 
 > 各平台余额接口可能随官方调整，解析失败时请以其官方文档为准；新增平台见下文「扩展新平台」。
 
