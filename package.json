@@ -1,5 +1,5 @@
 {
-  "name": "@githublogin0101/dsh-api-balance",
+  "name": "@huaidan2025/dsh-api-balance",
   "version": "0.1.0",
   "description": "DSH Web 插件：会话标题栏悬浮显示多个 AI 平台（AGICTO / DeepSeek / OpenRouter / Moonshot / SiliconFlow / OpenAI）的账户余额",
   "type": "module",
