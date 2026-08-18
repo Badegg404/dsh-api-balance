@@ -1,62 +1,64 @@
 # dsh-balance-monitor
 
-> **DSH 插件** · 在 DeepSeek Harness 会话标题栏悬浮显示多个 AI 平台的账户余额。
+> **DSH Plugin** · A floating account-balance widget for DeepSeek Harness that shows multiple AI providers' balances in the session header.
 
 [![DSH Plugin](https://img.shields.io/badge/DSH-Plugin-4ade80)](#) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-一个面向 [DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness) 的持久化 Web 插件：在页面右上角标题栏（「Session log」按钮左侧）挂一个小胶囊，实时显示所选平台的账户余额；点开展开下拉卡片，可切换平台、填写 API Key 并手动刷新。
+[中文文档](./README.zh-CN.md)
 
-## 特性
+A persistent web plugin for [DeepSeek Harness (DSH)](https://github.com/deepseek-ai/deepseek-harness): it pins a small pill to the top-right header (to the left of the "Session log" button) showing the selected provider's account balance in real time. Click it to expand a dropdown where you can switch provider, enter an API key, and refresh manually.
 
-- **多平台统一**：一个插件查询多个 AI 供应商余额，平台在 UI 里切换
-- **持久化**：平台 / API Key / 附加参数存入 DSH 凭据库（`~/.dsh/.credentials.yaml`，权限 0600），重启不丢
-- **实时刷新**：30 秒自动轮询 + 手动刷新
-- **安全**：Host 路由仅接受 loopback 请求；API Key 永不回传前端、不写日志
-- **主题适配**：全部样式走 DSH 主题 token，跟随明暗主题
-- **易扩展**：新增平台只需在 Host 的 `PROVIDERS` 数组里加一条声明，前端自动渲染对应表单
+## Features
 
-## 支持平台
+- **Multi-provider**: one plugin queries multiple AI vendors; switch provider in the UI
+- **Persistent**: provider / API key / extra params are stored in the DSH credentials store (`~/.dsh/.credentials.yaml`, mode 0600), surviving restarts
+- **Live refresh**: 30s auto-poll + manual refresh
+- **Secure**: host routes accept loopback requests only; API keys are never sent back to the frontend or logged
+- **Theme-aware**: all styles use DSH theme tokens, following light/dark mode
+- **Extensible**: add a provider by appending one entry to `PROVIDERS` on the host; the UI renders the matching form automatically
 
-| 平台 | 余额接口 | 附加参数 |
+## Supported providers
+
+| Provider | Balance endpoint | Extra params |
 | --- | --- | --- |
-| AGICTO | `POST /v1/enterprise/account` | `uuid`（账户 UUID） |
+| AGICTO | `POST /v1/enterprise/account` | `uuid` (account UUID) |
 | DeepSeek | `GET /user/balance` | — |
 | OpenRouter | `GET /api/v1/credits` | — |
 | Moonshot (Kimi) | `GET /v1/users/me/balance` | — |
-| 硅基流动 SiliconFlow | `GET /v1/user/info` | — |
+| SiliconFlow | `GET /v1/user/info` | — |
 | OpenAI | `GET /v1/dashboard/billing/subscription` | — |
 
-> 各平台余额接口可能随官方调整，解析失败时请以其官方文档为准；新增平台见下文「扩展新平台」。
+> Provider endpoints may change upstream; if a provider fails to parse, consult its official docs. See "Adding a provider" below.
 
-## 架构
+## Architecture
 
 ```
-Host（Node 进程）                     Client（浏览器）
-───────────────                     ──────────────
-lib/index.js                         lib/client.js
- ├─ GET  /balance/providers          标题栏胶囊 + 下拉卡片
- ├─ GET  /balance/status               ├─ 平台下拉选择
- ├─ POST /balance/config               ├─ API Key 输入
- └─ POST /balance/clear                ├─ 附加参数（按平台动态渲染）
-        │                              └─ 余额 / 刷新 / 清除
-        └─ credentials 服务（~/.dsh/.credentials.yaml）
+Host (Node process)                 Client (browser)
+───────────────                    ──────────────
+lib/index.js                        lib/client.js
+ ├─ GET  /balance/providers         header pill + dropdown
+ ├─ GET  /balance/status              ├─ provider selector
+ ├─ POST /balance/config              ├─ API key input
+ └─ POST /balance/clear               ├─ extra fields (per provider)
+        │                             └─ balance / refresh / clear
+        └─ credentials service (~/.dsh/.credentials.yaml)
            BALANCE_PROVIDER / BALANCE_API_KEY / BALANCE_EXTRA
 ```
 
-Host 通过 `webServer` 注册 loopback-only 的 `/balance/*` 路由，读取凭据库后请求对应平台的余额接口；Client 直接 `fetch` 同源路由，用 `React.createElement` 渲染挂件（`__ModuleLoader__` 打包格式，无需构建步骤）。
+The host registers loopback-only `/balance/*` routes via `webServer`, reads the credentials store, and queries the selected provider's balance endpoint; the client fetches the same-origin routes directly and renders the widget with `React.createElement` (bundled in `__ModuleLoader__` format, no build step).
 
-## 安装
+## Install
 
-### 方式一：`dsh plugin` 命令
+### Option A: `dsh plugin` command
 
 ```bash
 dsh plugin --profile web add https://github.com/githublogin0101/dsh-balance-monitor.git
 ```
 
-### 方式二：手动安装
+### Option B: manual install
 
-1. 把本仓库放到本地（如 `~/.dsh/profiles/web/plugins/dsh-balance-monitor/`）
-2. 编辑 `~/.dsh/profiles/web/package.json`：
+1. Place this repo somewhere local (e.g. `~/.dsh/profiles/web/plugins/dsh-balance-monitor/`)
+2. Edit `~/.dsh/profiles/web/package.json`:
 
 ```jsonc
 {
@@ -66,7 +68,7 @@ dsh plugin --profile web add https://github.com/githublogin0101/dsh-balance-moni
   "dsh": {
     "profile": {
       "bundles": [
-        // ...已有 bundles...
+        // ...existing bundles...
         "@githublogin0101/dsh-balance-monitor"
       ]
     }
@@ -74,54 +76,54 @@ dsh plugin --profile web add https://github.com/githublogin0101/dsh-balance-moni
 }
 ```
 
-3. `pnpm install`，然后重启 DSH。
+3. `pnpm install`, then restart DSH.
 
-## 使用
+## Usage
 
-1. 打开一个会话，标题栏「Session log」左侧出现「余额监控」胶囊
-2. 点开胶囊 → 选择平台 → 粘贴 API Key（AGICTO 还需填账户 UUID）→ 保存并查询
-3. 余额显示在胶囊与下拉卡片里，30 秒自动刷新
+1. Open a session; the "Balance" pill appears to the left of the "Session log" button
+2. Click it → pick a provider → paste the API key (AGICTO also needs the account UUID) → save
+3. The balance shows in the pill and dropdown, auto-refreshing every 30s
 
-## 展示
+## Screenshot
 
 ```
-┌─ 标题栏 ───────────────────────────────────────────┐
-│ 会话标题…        [● 余额监控 12.34 USD] [Session log] │
-└────────────────────────────────────────────────────┘
-            │ 点开
+┌─ Header ─────────────────────────────────────────────┐
+│ session title…   [● Balance 12.34 USD] [Session log] │
+└──────────────────────────────────────────────────────┘
+            │ click
             ▼
-┌─ 余额监控 ──────────────────────┐
-│ 平台        [AGICTO          ▾] │
-│ AGICTO 余额  ¥ 4.9974451        │
-│ API Key     [••••••••]     显示 │
-│ 账户 UUID   [a1b2c3...        ] │
-│ [ 保存并查询 ]  [清除]  [刷新]    │
-└─────────────────────────────────┘
+┌─ Balance Monitor ─────────────────┐
+│ Provider     [AGICTO          ▾]  │
+│ AGICTO       ¥ 4.9974451          │
+│ API Key      [••••••••]     show  │
+│ Account UUID [a1b2c3...        ]  │
+│ [ Save ]  [Clear]  [Refresh]      │
+└───────────────────────────────────┘
 ```
 
-## 扩展新平台
+## Adding a provider
 
-在 `lib/index.js` 的 `PROVIDERS` 数组中追加一条声明，前端表单会自动渲染：
+Append one entry to `PROVIDERS` in `lib/index.js`; the form renders automatically:
 
 ```js
 {
   id: "myplatform",
   label: "My Platform",
-  currency: "USD",                        // 显示用货币符号（可选）
-  extraFields: [],                        // 附加参数（如 agicto 的 uuid）
+  currency: "USD",                        // optional display currency
+  extraFields: [],                        // extra params (e.g. agicto's uuid)
   request: {
     method: "GET",
     url: "https://api.example.com/v1/balance",
-    headers: { "Authorization": "Bearer {key}" },   // {key} → API Key
-    // body: '{"uuid":"{uuid}"}',                    // 需要时启用，{字段名} → 附加参数
+    headers: { "Authorization": "Bearer {key}" },   // {key} → API key
+    // body: '{"uuid":"{uuid}"}',                    // enable if needed; {field} → extra param
   },
   parse(res) {
-    return { balance: String(res.data.balance) };    // 或 { balance: null, error: "..." }
+    return { balance: String(res.data.balance) };    // or { balance: null, error: "..." }
   },
 }
 ```
 
-`request.headers` / `request.body` 中的 `{key}` 与 `{<额外字段名>}` 占位符会在请求前被替换；`parse` 返回 `{ balance }` 或 `{ balance: null, error }`。
+Placeholders `{key}` and `{<extra field>}` in `request.headers` / `request.body` are substituted before the request; `parse` returns `{ balance }` or `{ balance: null, error }`.
 
 ## License
 
