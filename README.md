@@ -1,4 +1,4 @@
-# dsh-balance-monitor
+# dsh-api-balance
 
 > **DSH Plugin** · A floating account-balance widget for DeepSeek Harness that shows multiple AI providers' balances in the session header.
 
@@ -52,24 +52,24 @@ The host registers loopback-only `/balance/*` routes via `webServer`, reads the 
 ### Option A: `dsh plugin` command
 
 ```bash
-dsh plugin --profile web add https://github.com/githublogin0101/dsh-balance-monitor.git
+dsh plugin --profile web add https://github.com/githublogin0101/dsh-api-balance.git
 ```
 
 ### Option B: manual install
 
-1. Place this repo somewhere local (e.g. `~/.dsh/profiles/web/plugins/dsh-balance-monitor/`)
+1. Place this repo somewhere local (e.g. `~/.dsh/profiles/web/plugins/dsh-api-balance/`)
 2. Edit `~/.dsh/profiles/web/package.json`:
 
 ```jsonc
 {
   "dependencies": {
-    "@githublogin0101/dsh-balance-monitor": "file:plugins/dsh-balance-monitor"
+    "@githublogin0101/dsh-api-balance": "file:plugins/dsh-api-balance"
   },
   "dsh": {
     "profile": {
       "bundles": [
         // ...existing bundles...
-        "@githublogin0101/dsh-balance-monitor"
+        "@githublogin0101/dsh-api-balance"
       ]
     }
   }
