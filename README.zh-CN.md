@@ -27,6 +27,10 @@
 | Moonshot (Kimi) | `GET /v1/users/me/balance` | — |
 | 硅基流动 SiliconFlow | `GET /v1/user/info` | — |
 | OpenAI | `GET /v1/dashboard/billing/subscription` | — |
+| MiniMax | `GET /v1/token_plan/remains` | — |
+| 阶跃星辰 StepFun | `GET /v1/accounts` | — |
+| xAI (Grok) | `GET /v1/billing/credits` | — |
+| 智谱 GLM | `GET /api/monitor/usage/quota/limit` | — |
 
 > 各平台余额接口可能随官方调整，解析失败时请以其官方文档为准；新增平台见下文「扩展新平台」。
 
