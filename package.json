@@ -1,0 +1,32 @@
+{
+  "name": "@githublogin0101/dsh-balance-monitor",
+  "version": "0.1.0",
+  "description": "DSH Web 插件：会话标题栏悬浮显示多个 AI 平台（AGICTO / DeepSeek / OpenRouter / Moonshot / SiliconFlow / OpenAI）的账户余额",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "balance",
+    "web-ui"
+  ],
+  "license": "MIT"
+}

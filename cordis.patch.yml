@@ -1,0 +1,7 @@
+# dsh-balance-monitor bundle patch: inserts the dual-face plugin row into the
+# DSH web profile roster. Host half (exports ".") serves the loopback /balance/*
+# routes; the `dsh.client` declaration in package.json makes the browser half
+# (exports "./client") load in the web GUI.
+- insert:
+    - id: dsh-balance-monitor
+      name: '@githublogin0101/dsh-balance-monitor'
