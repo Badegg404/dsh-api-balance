@@ -63,13 +63,13 @@ dsh plugin --profile web add https://github.com/Badegg404/dsh-api-balance.git
 ```jsonc
 {
   "dependencies": {
-    "@badegg404/dsh-api-balance": "file:plugins/dsh-api-balance"
+    "@Badegg404/dsh-api-balance": "file:plugins/dsh-api-balance"
   },
   "dsh": {
     "profile": {
       "bundles": [
         // ...existing bundles...
-        "@badegg404/dsh-api-balance"
+        "@Badegg404/dsh-api-balance"
       ]
     }
   }
