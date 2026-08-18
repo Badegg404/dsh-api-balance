@@ -4,4 +4,4 @@
 # (exports "./client") load in the web GUI.
 - insert:
     - id: dsh-api-balance
-      name: '@githublogin0101/dsh-api-balance'
+      name: '@huaidan2025/dsh-api-balance'
