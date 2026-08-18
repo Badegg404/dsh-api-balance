@@ -1,7 +1,7 @@
 {
   "name": "@Badegg404/dsh-api-balance",
   "version": "0.1.0",
-  "description": "DSH Web 插件：会话标题栏悬浮显示多个 AI 平台（AGICTO / DeepSeek / OpenRouter / Moonshot / SiliconFlow / OpenAI）的账户余额",
+  "description": "DSH Web 插件：会话标题栏悬浮显示多个 AI 平台的账户余额与用量（余额 / 用量双 tab）",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
