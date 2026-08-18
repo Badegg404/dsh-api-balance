@@ -1,4 +1,4 @@
-# dsh-balance-monitor
+# dsh-api-balance
 
 > **DSH 插件** · 在 DeepSeek Harness 会话标题栏悬浮显示多个 AI 平台的账户余额。
 
@@ -52,24 +52,24 @@ Host 通过 `webServer` 注册 loopback-only 的 `/balance/*` 路由，读取凭
 ### 方式一：`dsh plugin` 命令
 
 ```bash
-dsh plugin --profile web add https://github.com/githublogin0101/dsh-balance-monitor.git
+dsh plugin --profile web add https://github.com/githublogin0101/dsh-api-balance.git
 ```
 
 ### 方式二：手动安装
 
-1. 把本仓库放到本地（如 `~/.dsh/profiles/web/plugins/dsh-balance-monitor/`）
+1. 把本仓库放到本地（如 `~/.dsh/profiles/web/plugins/dsh-api-balance/`）
 2. 编辑 `~/.dsh/profiles/web/package.json`：
 
 ```jsonc
 {
   "dependencies": {
-    "@githublogin0101/dsh-balance-monitor": "file:plugins/dsh-balance-monitor"
+    "@githublogin0101/dsh-api-balance": "file:plugins/dsh-api-balance"
   },
   "dsh": {
     "profile": {
       "bundles": [
         // ...已有 bundles...
-        "@githublogin0101/dsh-balance-monitor"
+        "@githublogin0101/dsh-api-balance"
       ]
     }
   }
