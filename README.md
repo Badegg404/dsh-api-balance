@@ -19,18 +19,27 @@ A persistent web plugin for [DeepSeek Harness (DSH)](https://github.com/deepseek
 
 ## Supported providers
 
-| Provider | Balance endpoint | Extra params |
+### Balance (余额)
+
+| Provider | Endpoint | Extra params |
 | --- | --- | --- |
 | AGICTO | `POST /v1/enterprise/account` | `uuid` (account UUID) |
 | DeepSeek | `GET /user/balance` | — |
 | OpenRouter | `GET /api/v1/credits` | — |
 | Moonshot (Kimi) | `GET /v1/users/me/balance` | — |
 | SiliconFlow | `GET /v1/user/info` | — |
-| OpenAI | `GET /v1/dashboard/billing/subscription` | — |
 | MiniMax | `GET /v1/token_plan/remains` | — |
 | StepFun | `GET /v1/accounts` | — |
 | xAI (Grok) | `GET /v1/billing/credits` | — |
-| Zhipu GLM | `GET /api/monitor/usage/quota/limit` | — |
+
+### Usage (用量)
+
+| Provider | Endpoint |
+| --- | --- |
+| OpenAI | `GET /v1/organization/costs` |
+| 智谱 GLM | `GET /api/monitor/usage/quota/limit` |
+| Together AI | `GET /v1/billing/usage` |
+| Anthropic (Claude) | `GET /v1/organizations/cost_report` |
 
 > Provider endpoints may change upstream; if a provider fails to parse, consult its official docs. See "Adding a provider" below.
 
