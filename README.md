@@ -52,7 +52,7 @@ The host registers loopback-only `/balance/*` routes via `webServer`, reads the 
 ### Option A: `dsh plugin` command
 
 ```bash
-dsh plugin --profile web add https://github.com/huaidan2025/dsh-api-balance.git
+dsh plugin --profile web add https://github.com/Badegg404/dsh-api-balance.git
 ```
 
 ### Option B: manual install
@@ -63,13 +63,13 @@ dsh plugin --profile web add https://github.com/huaidan2025/dsh-api-balance.git
 ```jsonc
 {
   "dependencies": {
-    "@huaidan2025/dsh-api-balance": "file:plugins/dsh-api-balance"
+    "@badegg404/dsh-api-balance": "file:plugins/dsh-api-balance"
   },
   "dsh": {
     "profile": {
       "bundles": [
         // ...existing bundles...
-        "@huaidan2025/dsh-api-balance"
+        "@badegg404/dsh-api-balance"
       ]
     }
   }
